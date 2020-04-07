@@ -46,11 +46,12 @@ class _HomeScrState extends State<HomeScr> {
               Container(
                   height: ScreenUtil().setHeight(200),
                   decoration: BoxDecoration(
-                      color: const Color(0xFFF9BE7C),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft:  Radius.circular(ScreenUtil().setSp(50)),
-                        bottomRight: Radius.circular(ScreenUtil().setSp(50)),
-                      )),
+                    color: const Color(0xFFF9BE7C),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(ScreenUtil().setSp(50)),
+                      bottomRight: Radius.circular(ScreenUtil().setSp(50)),
+                    ),
+                  ),
                   child: Center(
                     child: Text("Hi modal sheet"),
                   )),
