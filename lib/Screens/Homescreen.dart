@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScr extends StatefulWidget {
-  HomeScr({Key key}) : super(key: key);
-
   @override
   _HomeScrState createState() => _HomeScrState();
 }
@@ -11,25 +9,54 @@ class HomeScr extends StatefulWidget {
 class _HomeScrState extends State<HomeScr> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,
+        width: 1080, height: 1920, allowFontScaling: false);
     return SafeArea(
       child: Scaffold(
+        // appBar: AppBar(backgroundColor: Color(0xFFF9BE7C),leading: Icon(Icons.menu),),
         body: Container(
-          child: Container(
-            height: 300.0,
-            color: Colors.transparent,
-            child: new Container(
-                decoration: new BoxDecoration(
-                    color : const Color(0xFFF9BE7C),
-                    borderRadius: new BorderRadius.only(
-                      bottomLeft: const Radius.circular(40.0),
-                      bottomRight: const Radius.circular(40.0),
-                    )),
-                child: new Center(
-                  child: new Text("Hi modal sheet"),
-                )),
-
-            // child: Align(
-            //     alignment: Alignment.center, child: Text("Data must be here")),
+          height: MediaQuery.of(context).size.height,
+          color: Color(0xFFFFF9EC),
+          child: Column(
+            children: <Widget>[
+              Container(
+                  color: Color(0xFFF9BE7C),
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Row(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(Icons.menu),
+                        ),
+                        Flexible(
+                            fit: FlexFit.tight,
+                            child:
+                                SizedBox()), // Set both icon to each end of the container
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Icon(
+                            Icons.search,
+                            size: ScreenUtil().setSp(60),
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+              Container(
+                  height: ScreenUtil().setHeight(200),
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFF9BE7C),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft:  Radius.circular(ScreenUtil().setSp(50)),
+                        bottomRight: Radius.circular(ScreenUtil().setSp(50)),
+                      )),
+                  child: Center(
+                    child: Text("Hi modal sheet"),
+                  )),
+              Container(
+                  color: const Color(0xFFF9EC), child: Text("datamust be here"))
+            ],
           ),
         ),
       ),
