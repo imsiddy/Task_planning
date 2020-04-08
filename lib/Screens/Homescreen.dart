@@ -60,8 +60,7 @@ class _HomeScrState extends State<HomeScr> {
                               width: MediaQuery.of(context).size.width / 3,
                               child: CircleAvatar(
                                 radius: ScreenUtil().setSp(140),
-                                backgroundImage: NetworkImage(
-                                    "https://www.shutterstock.com/image-photo/portrait-smiling-red-haired-millennial-man-1194497251"),
+                                backgroundImage: NetworkImage("https://github.com/imsiddy/Task_planning/blob/master/assets/dsc_0072.JPG"),
                                 // child: Image.asset('assets/dsc_0072.JPG',height: 200,width: 300),
                               ),
                             ),
@@ -77,25 +76,28 @@ class _HomeScrState extends State<HomeScr> {
                             //   ),
                             // ),
                             Expanded(
-                              child: Container(
-                                child: Column(
-                                  children: <Widget>[
-                                    Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "Name",
-                                          style: TextStyle(
-                                              fontSize: ScreenUtil().setSp(80),
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                    Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Position',
-                                          style: TextStyle(
-                                              fontSize: ScreenUtil().setSp(60)),
-                                        )),
-                                  ],
+                              child: Padding(
+                                padding: EdgeInsets.only(left:ScreenUtil().setWidth(20)),
+                                child: Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Name",
+                                            style: TextStyle(
+                                                fontSize: ScreenUtil().setSp(80),
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            'Position',
+                                            style: TextStyle(
+                                                fontSize: ScreenUtil().setSp(60)),
+                                          )),
+                                    ],
+                                  ),
                                 ),
                               ),
                             )
@@ -106,23 +108,24 @@ class _HomeScrState extends State<HomeScr> {
                   )),
               Padding(
                 padding: EdgeInsets.all(ScreenUtil().setSp(30)),
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text("My Tasks"),
-                          Flexible(fit: FlexFit.tight, child: SizedBox()),
-                          FlatButton(
-                            onPressed: null,
-                            child: null,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.red)),
-                          ),
-                        ],
-                      ),
-                    ],
+                child: Padding(
+                  padding: EdgeInsets.only(left:ScreenUtil().setWidth(25),right:ScreenUtil().setWidth(25),top:ScreenUtil().setWidth(25)),
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text("My tasks",style: TextStyle(fontSize: ScreenUtil().setSp(70),fontWeight: FontWeight.w500,),),
+                            Flexible(fit: FlexFit.tight, child: SizedBox()),
+                            CircleAvatar(
+                              radius: ScreenUtil().setSp(80),
+                              child: Icon(Icons.calendar_today),
+                            )
+                          ],
+                        ),
+                        
+                      ],
+                    ),
                   ),
                 ),
               )
