@@ -8,10 +8,12 @@ class Addtsk extends StatefulWidget {
 }
 
 String _title;
+String _title1;
 DateTime date;
 final _formKey = GlobalKey<FormState>();
 final _formKey1 = GlobalKey<FormState>();
 FocusNode myFocusNode = new FocusNode();
+FocusNode myFocusNode1 = new FocusNode();
 
 class _AddtskState extends State<Addtsk> {
   bool validateAndSave() {
@@ -48,7 +50,7 @@ class _AddtskState extends State<Addtsk> {
                   ),
                   // title: Appbr(),
                   pinned: true,
-                  expandedHeight: ScreenUtil().setHeight(1000),
+                  expandedHeight: ScreenUtil().setHeight(800),
                   flexibleSpace: FlexibleSpaceBar(
                     background: Padding(
                       padding: EdgeInsets.symmetric(
@@ -67,32 +69,92 @@ class _AddtskState extends State<Addtsk> {
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
-                          TextFormField(
-                            focusNode: myFocusNode,
-                            style: TextStyle(
-                              color: Colors.black,
+                          Padding(
+                            padding: EdgeInsets.only(top:ScreenUtil().setSp(25)),
+                            child: TextFormField(
+                              focusNode: myFocusNode,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              // maxLines: 2,
+                              textCapitalization: TextCapitalization.sentences,
+                              decoration: InputDecoration(
+                                contentPadding : EdgeInsets.zero,
+                                  labelText: 'Title',
+                                  labelStyle: TextStyle(
+                                      fontSize: ScreenUtil().setSp(50),
+                                      color: myFocusNode.hasFocus
+                                          ? Colors.black
+                                          : Colors.black)),
+                              onSaved: (String value) {
+                                if (_title == null) {
+                                  _title = value;
+                                } else {
+                                  value = _title;
+                                }
+                              },
+                              validator: (value) => value.isEmpty
+                                  ? 'Please enter Title of task'
+                                  : null,
                             ),
-                            textCapitalization: TextCapitalization.sentences,
-                            decoration: InputDecoration(
-                                labelText: 'Title',
-                                labelStyle: TextStyle(,
-                                    color: myFocusNode.hasFocus
-                                        ? Colors.blue
-                                        : Colors.black)),
-                            onSaved: (String value) {
-                              if (_title == null) {
-                                _title = value;
-                              } else {
-                                value = _title;
-                              }
-                            },
-                            validator: (value) => value.isEmpty
-                                ? 'Please enter Title of task'
-                                : null,
                           ),
                           Row(
                             children: <Widget>[
-                              
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.7,
+                                child: TextFormField(
+                                  enabled: false,
+                                  focusNode: myFocusNode1,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  decoration: InputDecoration(
+                                      labelText: 'data',
+                                      labelStyle: TextStyle(
+                                        height: 4,
+                                          fontSize: ScreenUtil().setSp(50),
+                                          color: myFocusNode.hasFocus
+                                              ? Colors.black
+                                              : Colors.black)),
+                                  onSaved: (String value) {
+                                    if (_title1 == null) {
+                                      _title1 = value;
+                                    } else {
+                                      value = _title1;
+                                    }
+                                  },
+                                  validator: (value) => value.isEmpty
+                                      ? 'Please enter Title of task'
+                                      : null,
+                                ),
+                              ),
+                              Flexible(
+                                fit: FlexFit.tight,
+                                child: SizedBox(),
+                              ),
+                              GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Addtsk(),
+                                          ),
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top:ScreenUtil().setHeight(60)),
+                                        child: CircleAvatar(
+                                          backgroundColor: Color(0xFF309397),
+                                          radius: ScreenUtil().setSp(80),
+                                          child: Icon(
+                                            Icons.calendar_today,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    )
                             ],
                           )
                         ],
