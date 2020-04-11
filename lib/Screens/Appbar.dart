@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class Appbr extends StatefulWidget {
   Appbr({Key key}) : super(key: key);
 
@@ -17,16 +16,19 @@ class _AppbrState extends State<Appbr> {
         children: <Widget>[
           Align(
             alignment: Alignment.centerLeft,
-            child: Icon(Icons.menu,color: Colors.black,),
+            child: Icon(
+              Icons.menu,
+              color: Colors.black,
+            ),
           ),
 
           Flexible(
             fit: FlexFit.tight,
             child: SizedBox(),
-          ),// Set both icon to each end of the container
+          ), // Set both icon to each end of the container
 
-          Text("Name"),
-            Flexible(
+          // Text("Name"),
+          Flexible(
             fit: FlexFit.tight,
             child: SizedBox(),
           ),
@@ -35,7 +37,8 @@ class _AppbrState extends State<Appbr> {
             alignment: Alignment.topRight,
             child: Icon(
               Icons.search,
-              size: ScreenUtil().setSp(60),color: Colors.black,
+              size: ScreenUtil().setSp(60),
+              color: Colors.black,
             ),
           )
         ],
