@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_planner/Screens/Listofwork.dart';
+import 'dart:async';
 
 class Addtsk extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class Addtsk extends StatefulWidget {
 
 String _title;
 String _title1;
-DateTime date;
+// DateTime selectedDate = DateTime.now();
 final _formKey = GlobalKey<FormState>();
 final _formKey1 = GlobalKey<FormState>();
 FocusNode myFocusNode = new FocusNode();
@@ -26,6 +27,21 @@ class _AddtskState extends State<Addtsk> {
     } else {
       return false;
     }
+  }
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate:
+            DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
   }
 
   @override
@@ -70,7 +86,8 @@ class _AddtskState extends State<Addtsk> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top:ScreenUtil().setSp(25)),
+                            padding:
+                                EdgeInsets.only(top: ScreenUtil().setSp(25)),
                             child: TextFormField(
                               focusNode: myFocusNode,
                               style: TextStyle(
@@ -79,7 +96,7 @@ class _AddtskState extends State<Addtsk> {
                               // maxLines: 2,
                               textCapitalization: TextCapitalization.sentences,
                               decoration: InputDecoration(
-                                contentPadding : EdgeInsets.zero,
+                                  contentPadding: EdgeInsets.zero,
                                   labelText: 'Title',
                                   labelStyle: TextStyle(
                                       fontSize: ScreenUtil().setSp(50),
@@ -102,32 +119,46 @@ class _AddtskState extends State<Addtsk> {
                             children: <Widget>[
                               Container(
                                 width: MediaQuery.of(context).size.width / 1.7,
-                                child: TextFormField(
-                                  enabled: false,
-                                  focusNode: myFocusNode1,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  decoration: InputDecoration(
-                                      labelText: 'data',
-                                      labelStyle: TextStyle(
-                                        height: 4,
-                                          fontSize: ScreenUtil().setSp(50),
-                                          color: myFocusNode.hasFocus
-                                              ? Colors.black
-                                              : Colors.black)),
-                                  onSaved: (String value) {
-                                    if (_title1 == null) {
-                                      _title1 = value;
-                                    } else {
-                                      value = _title1;
-                                    }
-                                  },
-                                  validator: (value) => value.isEmpty
-                                      ? 'Please enter Title of task'
-                                      : null,
+                                child: Column(
+                                  children: <Widget>[
+                                    Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(bottom:0),
+                                          child: Text("Date"),
+                                        )),
+                                    TextFormField(
+                                      enabled: false,
+                                      focusNode: myFocusNode1,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(left: 3),
+                                          labelText:
+                                              ("${selectedDate.toLocal()}"
+                                                  .split(' ')[0]),
+                                          labelStyle: TextStyle(
+                                              // height: 3,
+                                              fontSize: ScreenUtil().setSp(50),
+                                              color: myFocusNode.hasFocus
+                                                  ? Colors.black
+                                                  : Colors.black)),
+                                      onSaved: (String value) {
+                                        if (_title1 == null) {
+                                          _title1 = value;
+                                        } else {
+                                          value = _title1;
+                                        }
+                                      },
+                                      validator: (value) => value.isEmpty
+                                          ? 'Please enter Title of task'
+                                          : null,
+                                    ),
+                                  ],
                                 ),
                               ),
                               Flexible(
@@ -135,26 +166,28 @@ class _AddtskState extends State<Addtsk> {
                                 child: SizedBox(),
                               ),
                               GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Addtsk(),
-                                          ),
-                                        );
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.only(top:ScreenUtil().setHeight(60)),
-                                        child: CircleAvatar(
-                                          backgroundColor: Color(0xFF309397),
-                                          radius: ScreenUtil().setSp(80),
-                                          child: Icon(
-                                            Icons.calendar_today,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                onTap: () {
+                                  _selectDate(context);
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>AppBar(),
+                                  //   ),
+                                  // );
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: ScreenUtil().setHeight(60)),
+                                  child: CircleAvatar(
+                                    backgroundColor: Color(0xFF309397),
+                                    radius: ScreenUtil().setSp(80),
+                                    child: Icon(
+                                      Icons.calendar_today,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                         ],
@@ -164,56 +197,7 @@ class _AddtskState extends State<Addtsk> {
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate(
-                    <Widget>[
-                      // DisplayListView(),
-                      Padding(
-                        padding: EdgeInsets.all(ScreenUtil().setSp(30)),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: ScreenUtil().setWidth(25),
-                              right: ScreenUtil().setWidth(25),
-                              top: ScreenUtil().setWidth(25)),
-                          child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      "My tasks",
-                                      style: TextStyle(
-                                        fontSize: ScreenUtil().setSp(70),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Flexible(
-                                        fit: FlexFit.tight, child: SizedBox()),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Addtsk(),
-                                          ),
-                                        );
-                                      },
-                                      child: CircleAvatar(
-                                        backgroundColor: Color(0xFF309397),
-                                        radius: ScreenUtil().setSp(80),
-                                        child: Icon(
-                                          Icons.calendar_today,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                DisplayListView(),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                    <Widget>[],
                   ),
                 ),
               ],
