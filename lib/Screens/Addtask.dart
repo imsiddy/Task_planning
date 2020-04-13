@@ -10,11 +10,15 @@ class Addtsk extends StatefulWidget {
 
 String _title;
 String _title1;
-// DateTime selectedDate = DateTime.now();
 final _formKey = GlobalKey<FormState>();
 // final _formKey1 = GlobalKey<FormState>();
 FocusNode myFocusNode = new FocusNode();
 FocusNode myFocusNode1 = new FocusNode();
+
+DateTime selectedDate = DateTime.now();
+TimeOfDay time = new TimeOfDay.now();
+TimeOfDay time2 = new TimeOfDay.now();
+TimeOfDay t;
 
 class _AddtskState extends State<Addtsk> {
   bool validateAndSave() {
@@ -223,137 +227,143 @@ class _AddtskState extends State<Addtsk> {
                 SliverList(
                   delegate: SliverChildListDelegate(
                     <Widget>[
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(30),
-                            vertical: ScreenUtil().setHeight(30)),
-                        child: Row(
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () async {
-                                int x = 1;
-                                await _selectTime(context, x);
-                                print(time.format(context));
-                              },
-                              child: Container(
-                                color: Color(0xFFFFF9EC),
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                child: Column(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(bottom: 0),
-                                        child: Text("Start time"),
-                                      ),
-                                    ),
-                                    TextFormField(
-                                      enabled: false,
-                                      focusNode: myFocusNode1,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      textCapitalization:
-                                          TextCapitalization.sentences,
-                                      decoration: InputDecoration(
-                                          contentPadding:
-                                              EdgeInsets.only(left: 3),
-                                          // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
-                                          labelText: time.format(context),
-                                          labelStyle: TextStyle(
-                                              // height: 3,
-                                              fontSize: ScreenUtil().setSp(50),
-                                              color: myFocusNode.hasFocus
-                                                  ? Colors.black
-                                                  : Colors.black)),
-                                      onSaved: (String value) {
-                                        if (_title1 == null) {
-                                          _title1 = value;
-                                        } else {
-                                          value = _title1;
-                                        }
-                                      },
-                                      validator: (value) => value.isEmpty
-                                          ? 'Please enter Title of task'
-                                          : null,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              fit: FlexFit.tight,
-                              child: SizedBox(),
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                int x = 2;
-                                await _selectTime(context, x);
-                                print(time.format(context));
-                                print(time2.format(context));
-                                // print(TimeOfDay.fromDateTime(selectedDate.add(Duration(hours: 3))));
-                                double _doubleyourTime = time2.hour.toDouble() +(time2.minute.toDouble() / 60);
-                                double _doubleNowTime = time.hour.toDouble() +(time.minute.toDouble() / 60);
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       horizontal: ScreenUtil().setWidth(30),
+                      //       vertical: ScreenUtil().setHeight(30)),
+                      //   child: Row(
+                      //     children: <Widget>[
+                      //       GestureDetector(
+                      //         onTap: () async {
+                      //           int x = 1;
+                      //           await _selectTime(context, x);
+                      //           print(time.format(context));
+                      //         },
+                      //         child: Container(
+                      //           color: Color(0xFFFFF9EC),
+                      //           width: MediaQuery.of(context).size.width / 2.5,
+                      //           child: Column(
+                      //             children: <Widget>[
+                      //               Align(
+                      //                 alignment: Alignment.bottomLeft,
+                      //                 child: Padding(
+                      //                   padding: EdgeInsets.only(bottom: 0),
+                      //                   child: Text("Start time"),
+                      //                 ),
+                      //               ),
+                      //               TextFormField(
+                      //                 enabled: false,
+                      //                 focusNode: myFocusNode1,
+                      //                 style: TextStyle(
+                      //                   color: Colors.black,
+                      //                 ),
+                      //                 textCapitalization:
+                      //                     TextCapitalization.sentences,
+                      //                 decoration: InputDecoration(
+                      //                     contentPadding:
+                      //                         EdgeInsets.only(left: 3),
+                      //                     // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                      //                     labelText: time.format(context),
+                      //                     labelStyle: TextStyle(
+                      //                         // height: 3,
+                      //                         fontSize: ScreenUtil().setSp(50),
+                      //                         color: myFocusNode.hasFocus
+                      //                             ? Colors.black
+                      //                             : Colors.black)),
+                      //                 onSaved: (String value) {
+                      //                   if (_title1 == null) {
+                      //                     _title1 = value;
+                      //                   } else {
+                      //                     value = _title1;
+                      //                   }
+                      //                 },
+                      //                 validator: (value) => value.isEmpty
+                      //                     ? 'Please enter Title of task'
+                      //                     : null,
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Flexible(
+                      //         fit: FlexFit.tight,
+                      //         child: SizedBox(),
+                      //       ),
+                      //       GestureDetector(
+                      //         onTap: () async {
+                      //           int x = 2;
+                      //           await _selectTime(context, x);
+                      //           print(time.format(context));
+                      //           print(time2.format(context));
+                      //           // print(TimeOfDay.fromDateTime(selectedDate.add(Duration(hours: 3))));
+                      //           double _doubleyourTime = time2.hour.toDouble() +
+                      //               (time2.minute.toDouble() / 60);
+                      //           double _doubleNowTime = time.hour.toDouble() +
+                      //               (time.minute.toDouble() / 60);
 
-                                double _timeDiff =_doubleyourTime - _doubleNowTime;
+                      //           double _timeDiff =
+                      //               _doubleyourTime - _doubleNowTime;
 
-                                int _hr = _timeDiff.truncate() ;
-                                int _minute =((_timeDiff - _timeDiff.truncate()) * 60).toInt();
+                      //           int _hr = _timeDiff.truncate();
+                      //           int _minute =
+                      //               ((_timeDiff - _timeDiff.truncate()) * 60)
+                      //                   .toInt();
 
-                                print(
-                                    'Here your Happy $_hr Hour and $_minute min');
-                              },
-                              child: Container(
-                                color: Color(0xFFFFF9EC),
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                child: Column(
-                                  children: <Widget>[
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(bottom: 0),
-                                        child: Text("End time"),
-                                      ),
-                                    ),
-                                    TextFormField(
-                                      enabled: false,
-                                      focusNode: myFocusNode1,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      textCapitalization:
-                                          TextCapitalization.sentences,
-                                      decoration: InputDecoration(
-                                          suffixIcon:
-                                              Icon(Icons.arrow_drop_down),
-                                          contentPadding:
-                                              EdgeInsets.only(left: 3),
-                                          // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
-                                          labelText: time2.format(context),
-                                          labelStyle: TextStyle(
-                                              // height: 3,
-                                              fontSize: ScreenUtil().setSp(50),
-                                              color: myFocusNode.hasFocus
-                                                  ? Colors.black
-                                                  : Colors.black)),
-                                      onSaved: (String value) {
-                                        if (_title1 == null) {
-                                          _title1 = value;
-                                        } else {
-                                          value = _title1;
-                                        }
-                                      },
-                                      validator: (value) => value.isEmpty
-                                          ? 'Please enter Title of task'
-                                          : null,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      //           print(
+                      //               'Here your Happy $_hr Hour and $_minute min');
+                      //         },
+                      //         child: Container(
+                      //           color: Color(0xFFFFF9EC),
+                      //           width: MediaQuery.of(context).size.width / 2.5,
+                      //           child: Column(
+                      //             children: <Widget>[
+                      //               Align(
+                      //                 alignment: Alignment.bottomLeft,
+                      //                 child: Padding(
+                      //                   padding: EdgeInsets.only(bottom: 0),
+                      //                   child: Text("End time"),
+                      //                 ),
+                      //               ),
+                      //               TextFormField(
+                      //                 enabled: false,
+                      //                 focusNode: myFocusNode1,
+                      //                 style: TextStyle(
+                      //                   color: Colors.black,
+                      //                 ),
+                      //                 textCapitalization:
+                      //                     TextCapitalization.sentences,
+                      //                 decoration: InputDecoration(
+                      //                     suffixIcon:
+                      //                         Icon(Icons.arrow_drop_down),
+                      //                     contentPadding:
+                      //                         EdgeInsets.only(left: 3),
+                      //                     // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                      //                     labelText: time2.format(context),
+                      //                     labelStyle: TextStyle(
+                      //                         // height: 3,
+                      //                         fontSize: ScreenUtil().setSp(50),
+                      //                         color: myFocusNode.hasFocus
+                      //                             ? Colors.black
+                      //                             : Colors.black)),
+                      //                 onSaved: (String value) {
+                      //                   if (_title1 == null) {
+                      //                     _title1 = value;
+                      //                   } else {
+                      //                     value = _title1;
+                      //                   }
+                      //                 },
+                      //                 validator: (value) => value.isEmpty
+                      //                     ? 'Please enter Title of task'
+                      //                     : null,
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      Clocks(),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(50),
@@ -392,6 +402,171 @@ class _AddtskState extends State<Addtsk> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Clocks extends StatefulWidget {
+  Clocks({Key key}) : super(key: key);
+
+  @override
+  _ClocksState createState() => _ClocksState();
+}
+
+class _ClocksState extends State<Clocks> {
+  Future<Null> _selectTime(BuildContext context, int x) async {
+    if (x == 1) {
+      t = time;
+      print(time);
+    } else {
+      t = time2;
+      print(time2);
+    }
+    final TimeOfDay picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (picked != null && picked != t) {
+      print('Time selected: ${t.toString()}');
+      setState(() {
+        t = picked;
+        if (x == 1) {
+          time = t;
+          print(time);
+        } else {
+          time2 = t;
+        }
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenUtil().setWidth(30),
+          vertical: ScreenUtil().setHeight(30)),
+      child: Row(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () async {
+              int x = 1;
+              await _selectTime(context, x);
+              print(time.format(context));
+            },
+            child: Container(
+              color: Color(0xFFFFF9EC),
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 0),
+                      child: Text("Start time"),
+                    ),
+                  ),
+                  TextFormField(
+                    enabled: false,
+                    focusNode: myFocusNode1,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 3),
+                        // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                        labelText: time.format(context),
+                        labelStyle: TextStyle(
+                            // height: 3,
+                            fontSize: ScreenUtil().setSp(50),
+                            color: myFocusNode.hasFocus
+                                ? Colors.black
+                                : Colors.black)),
+                    onSaved: (String value) {
+                      if (_title1 == null) {
+                        _title1 = value;
+                      } else {
+                        value = _title1;
+                      }
+                    },
+                    validator: (value) =>
+                        value.isEmpty ? 'Please enter Title of task' : null,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Flexible(
+            fit: FlexFit.tight,
+            child: SizedBox(),
+          ),
+          GestureDetector(
+            onTap: () async {
+              int x = 2;
+              await _selectTime(context, x);
+              print(time.format(context));
+              print(time2.format(context));
+              // print(TimeOfDay.fromDateTime(selectedDate.add(Duration(hours: 3))));
+              double _doubleyourTime =
+                  time2.hour.toDouble() + (time2.minute.toDouble() / 60);
+              double _doubleNowTime =
+                  time.hour.toDouble() + (time.minute.toDouble() / 60);
+
+              double _timeDiff = _doubleyourTime - _doubleNowTime;
+
+              int _hr = _timeDiff.truncate();
+              int _minute = ((_timeDiff - _timeDiff.truncate()) * 60).toInt();
+
+              print('Here your Happy $_hr Hour and $_minute min');
+            },
+            child: Container(
+              color: Color(0xFFFFF9EC),
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 0),
+                      child: Text("End time"),
+                    ),
+                  ),
+                  TextFormField(
+                    enabled: false,
+                    focusNode: myFocusNode1,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: InputDecoration(
+                        suffixIcon: Icon(Icons.arrow_drop_down),
+                        contentPadding: EdgeInsets.only(left: 3),
+                        // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                        labelText: time2.format(context),
+                        labelStyle: TextStyle(
+                            // height: 3,
+                            fontSize: ScreenUtil().setSp(50),
+                            color: myFocusNode.hasFocus
+                                ? Colors.black
+                                : Colors.black)),
+                    onSaved: (String value) {
+                      if (_title1 == null) {
+                        _title1 = value;
+                      } else {
+                        value = _title1;
+                      }
+                    },
+                    validator: (value) =>
+                        value.isEmpty ? 'Please enter Title of task' : null,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
