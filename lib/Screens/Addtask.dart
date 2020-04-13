@@ -12,7 +12,7 @@ String _title;
 String _title1;
 // DateTime selectedDate = DateTime.now();
 final _formKey = GlobalKey<FormState>();
-final _formKey1 = GlobalKey<FormState>();
+// final _formKey1 = GlobalKey<FormState>();
 FocusNode myFocusNode = new FocusNode();
 FocusNode myFocusNode1 = new FocusNode();
 
@@ -30,6 +30,9 @@ class _AddtskState extends State<Addtsk> {
   }
 
   DateTime selectedDate = DateTime.now();
+  TimeOfDay time = new TimeOfDay.now();
+  TimeOfDay time2 = new TimeOfDay.now();
+  TimeOfDay t;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -42,6 +45,33 @@ class _AddtskState extends State<Addtsk> {
       setState(() {
         selectedDate = picked;
       });
+  }
+
+  Future<Null> _selectTime(BuildContext context, int x) async {
+    if (x == 1) {
+      t = time;
+      print(time);
+    } else {
+      t = time2;
+      print(time2);
+    }
+    final TimeOfDay picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (picked != null && picked != t) {
+      print('Time selected: ${t.toString()}');
+      setState(() {
+        t = picked;
+        if (x == 1) {
+          time = t;
+          print(time);
+        } else {
+          time2 = t;
+        }
+      });
+    }
   }
 
   @override
@@ -124,7 +154,8 @@ class _AddtskState extends State<Addtsk> {
                                     Align(
                                         alignment: Alignment.bottomLeft,
                                         child: Padding(
-                                          padding: EdgeInsets.only(bottom:0),
+                                          padding: EdgeInsets.only(
+                                              top: 10, bottom: 0),
                                           child: Text("Date"),
                                         )),
                                     TextFormField(
@@ -168,12 +199,6 @@ class _AddtskState extends State<Addtsk> {
                               GestureDetector(
                                 onTap: () {
                                   _selectDate(context);
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>AppBar(),
-                                  //   ),
-                                  // );
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(
@@ -197,77 +222,175 @@ class _AddtskState extends State<Addtsk> {
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate(
-                    <Widget>[],
+                    <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(30),
+                            vertical: ScreenUtil().setHeight(30)),
+                        child: Row(
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () async {
+                                int x = 1;
+                                await _selectTime(context, x);
+                                print(time.format(context));
+                              },
+                              child: Container(
+                                color: Color(0xFFFFF9EC),
+                                width: MediaQuery.of(context).size.width / 2.5,
+                                child: Column(
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(bottom: 0),
+                                        child: Text("Start time"),
+                                      ),
+                                    ),
+                                    TextFormField(
+                                      enabled: false,
+                                      focusNode: myFocusNode1,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(left: 3),
+                                          // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                                          labelText: time.format(context),
+                                          labelStyle: TextStyle(
+                                              // height: 3,
+                                              fontSize: ScreenUtil().setSp(50),
+                                              color: myFocusNode.hasFocus
+                                                  ? Colors.black
+                                                  : Colors.black)),
+                                      onSaved: (String value) {
+                                        if (_title1 == null) {
+                                          _title1 = value;
+                                        } else {
+                                          value = _title1;
+                                        }
+                                      },
+                                      validator: (value) => value.isEmpty
+                                          ? 'Please enter Title of task'
+                                          : null,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              fit: FlexFit.tight,
+                              child: SizedBox(),
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                int x = 2;
+                                await _selectTime(context, x);
+                                print(time.format(context));
+                                print(time2.format(context));
+                                // print(TimeOfDay.fromDateTime(selectedDate.add(Duration(hours: 3))));
+                                double _doubleyourTime = time2.hour.toDouble() +(time2.minute.toDouble() / 60);
+                                double _doubleNowTime = time.hour.toDouble() +(time.minute.toDouble() / 60);
+
+                                double _timeDiff =_doubleyourTime - _doubleNowTime;
+
+                                int _hr = _timeDiff.truncate() ;
+                                int _minute =((_timeDiff - _timeDiff.truncate()) * 60).toInt();
+
+                                print(
+                                    'Here your Happy $_hr Hour and $_minute min');
+                              },
+                              child: Container(
+                                color: Color(0xFFFFF9EC),
+                                width: MediaQuery.of(context).size.width / 2.5,
+                                child: Column(
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(bottom: 0),
+                                        child: Text("End time"),
+                                      ),
+                                    ),
+                                    TextFormField(
+                                      enabled: false,
+                                      focusNode: myFocusNode1,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
+                                      decoration: InputDecoration(
+                                          suffixIcon:
+                                              Icon(Icons.arrow_drop_down),
+                                          contentPadding:
+                                              EdgeInsets.only(left: 3),
+                                          // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                                          labelText: time2.format(context),
+                                          labelStyle: TextStyle(
+                                              // height: 3,
+                                              fontSize: ScreenUtil().setSp(50),
+                                              color: myFocusNode.hasFocus
+                                                  ? Colors.black
+                                                  : Colors.black)),
+                                      onSaved: (String value) {
+                                        if (_title1 == null) {
+                                          _title1 = value;
+                                        } else {
+                                          value = _title1;
+                                        }
+                                      },
+                                      validator: (value) => value.isEmpty
+                                          ? 'Please enter Title of task'
+                                          : null,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(50),
+                            vertical: ScreenUtil().setHeight(20)),
+                        child: TextFormField(
+                          // focusNode: myFocusNode,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          maxLines: 3,
+                          textCapitalization: TextCapitalization.sentences,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              labelText: 'Title',
+                              labelStyle: TextStyle(
+                                  fontSize: ScreenUtil().setSp(50),
+                                  color: myFocusNode.hasFocus
+                                      ? Colors.black
+                                      : Colors.black)),
+                          onSaved: (String value) {
+                            if (_title == null) {
+                              _title = value;
+                            } else {
+                              value = _title;
+                            }
+                          },
+                          validator: (value) => value.isEmpty
+                              ? 'Please enter Title of task'
+                              : null,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class Dataent extends StatefulWidget {
-  @override
-  _DataentState createState() => _DataentState();
-}
-
-class _DataentState extends State<Dataent> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: ScreenUtil().setWidth(30)),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: ScreenUtil().setHeight(200),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Create new task",
-                style: TextStyle(
-                    fontSize: ScreenUtil().setSp(90),
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-            TextFormField(
-              textCapitalization: TextCapitalization.sentences,
-              decoration: InputDecoration(
-                labelText: 'Title',
-              ),
-              onSaved: (String value) {
-                if (_title == null) {
-                  _title = value;
-                } else {
-                  value = _title;
-                }
-              },
-              autofocus: true,
-              validator: (value) =>
-                  value.isEmpty ? 'Locality is required' : null,
-            ),
-            Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: RaisedButton(
-                    // onPressed: validateAndSave,
-                    child: Text(
-                      'Next',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    elevation: 4.0,
-                    color: Colors.blue[700],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                  ),
-                )),
-          ],
         ),
       ),
     );
