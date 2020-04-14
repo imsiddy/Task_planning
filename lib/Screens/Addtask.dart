@@ -19,24 +19,43 @@ DateTime selectedDate = DateTime.now();
 TimeOfDay time = new TimeOfDay.now();
 TimeOfDay time2 = new TimeOfDay.now();
 TimeOfDay t;
+int _hr;
+double _minute;
+double h = ScreenUtil().setHeight(0);
 
 class _AddtskState extends State<Addtsk> {
+
+
+  @override
+  void initState() { 
+    super.initState();
+    double h = ScreenUtil().setHeight(0);    
+  }
+  
   bool validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
       //createRecord();
       // Navigator.push(context, MaterialPageRoute(builder: (context) => Secondpage()));
+      setState(() {
+        h = ScreenUtil().setHeight(0);
+      });
+
       return true;
     } else {
+      setState(() {
+        h = ScreenUtil().setHeight(50);
+      });
+
       return false;
     }
   }
 
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay time = new TimeOfDay.now();
-  TimeOfDay time2 = new TimeOfDay.now();
-  TimeOfDay t;
+  // DateTime selectedDate = DateTime.now();
+  // TimeOfDay time = new TimeOfDay.now();
+  // TimeOfDay time2 = new TimeOfDay.now();
+  // TimeOfDay t;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -100,7 +119,7 @@ class _AddtskState extends State<Addtsk> {
                   ),
                   // title: Appbr(),
                   pinned: true,
-                  expandedHeight: ScreenUtil().setHeight(800),
+                  expandedHeight: ScreenUtil().setHeight(800) + h,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Padding(
                       padding: EdgeInsets.symmetric(
@@ -153,47 +172,52 @@ class _AddtskState extends State<Addtsk> {
                             children: <Widget>[
                               Container(
                                 width: MediaQuery.of(context).size.width / 1.7,
-                                child: Column(
-                                  children: <Widget>[
-                                    Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 10, bottom: 0),
-                                          child: Text("Date"),
-                                        )),
-                                    TextFormField(
-                                      enabled: false,
-                                      focusNode: myFocusNode1,
-                                      style: TextStyle(
-                                        color: Colors.black,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: ScreenUtil().setHeight(15)),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10, bottom: 0),
+                                            child: Text("Date"),
+                                          )),
+                                      TextFormField(
+                                        enabled: false,
+                                        focusNode: myFocusNode1,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                        textCapitalization:
+                                            TextCapitalization.sentences,
+                                        decoration: InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.only(left: 3),
+                                            labelText:
+                                                ("${selectedDate.toLocal()}"
+                                                    .split(' ')[0]),
+                                            labelStyle: TextStyle(
+                                                // height: 3,
+                                                fontSize:
+                                                    ScreenUtil().setSp(50),
+                                                color: myFocusNode.hasFocus
+                                                    ? Colors.black
+                                                    : Colors.black)),
+                                        onSaved: (String value) {
+                                          if (_title1 == null) {
+                                            _title1 = value;
+                                          } else {
+                                            value = _title1;
+                                          }
+                                        },
+                                        validator: (value) => value.isEmpty
+                                            ? 'Please enter Title of task'
+                                            : null,
                                       ),
-                                      textCapitalization:
-                                          TextCapitalization.sentences,
-                                      decoration: InputDecoration(
-                                          contentPadding:
-                                              EdgeInsets.only(left: 3),
-                                          labelText:
-                                              ("${selectedDate.toLocal()}"
-                                                  .split(' ')[0]),
-                                          labelStyle: TextStyle(
-                                              // height: 3,
-                                              fontSize: ScreenUtil().setSp(50),
-                                              color: myFocusNode.hasFocus
-                                                  ? Colors.black
-                                                  : Colors.black)),
-                                      onSaved: (String value) {
-                                        if (_title1 == null) {
-                                          _title1 = value;
-                                        } else {
-                                          value = _title1;
-                                        }
-                                      },
-                                      validator: (value) => value.isEmpty
-                                          ? 'Please enter Title of task'
-                                          : null,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               Flexible(
@@ -395,6 +419,12 @@ class _AddtskState extends State<Addtsk> {
                               : null,
                         ),
                       ),
+                      RaisedButton(
+                        onPressed: () {
+                          validateAndSave();
+                        },
+                        child: Text("Add task"),
+                      )
                     ],
                   ),
                 ),
@@ -509,7 +539,6 @@ class _ClocksState extends State<Clocks> {
               await _selectTime(context, x);
               print(time.format(context));
               print(time2.format(context));
-              // print(TimeOfDay.fromDateTime(selectedDate.add(Duration(hours: 3))));
               double _doubleyourTime =
                   time2.hour.toDouble() + (time2.minute.toDouble() / 60);
               double _doubleNowTime =
@@ -517,8 +546,8 @@ class _ClocksState extends State<Clocks> {
 
               double _timeDiff = _doubleyourTime - _doubleNowTime;
 
-              int _hr = _timeDiff.truncate();
-              int _minute = ((_timeDiff - _timeDiff.truncate()) * 60).toInt();
+              _hr = _timeDiff.truncate();
+              _minute = ((_timeDiff - _timeDiff.truncate()) * 60).toDouble();
 
               print('Here your Happy $_hr Hour and $_minute min');
             },
