@@ -31,7 +31,7 @@ class _HomeScrState extends State<HomeScr> {
                 ),
                 title: Appbr(),
                 pinned: true,
-                expandedHeight: 210.0,
+                expandedHeight: ScreenUtil().setHeight(550),
                 flexibleSpace: FlexibleSpaceBar(
                   background: Appbd(),
                 ),
