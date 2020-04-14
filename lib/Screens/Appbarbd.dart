@@ -21,13 +21,15 @@ class _AppbdState extends State<Appbd> {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width / 3,
-                child: CircleAvatar(
-                  radius: ScreenUtil().setSp(140),
+                child: Center(
+                  child: CircleAvatar(
+                    radius: ScreenUtil().setWidth(140),
 
-                  // backgroundImage: NetworkImage(
-                  //     "https://github.com/imsiddy/Task_planning/blob/master/assets/dsc_0072.JPG"),
-                  
-                  // child: Image.asset('assets/dsc_0072.JPG',height: 250,width: 400),
+                    // backgroundImage: NetworkImage(
+                    //     "https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg"),
+                    backgroundImage: ExactAssetImage('assets/dsc_0072.JPG',scale: 1),
+                    // child: Image.asset('assets/dsc_0072.JPG',height: 250,width: 400),
+                  ),
                 ),
               ),
               Expanded(
