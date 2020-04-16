@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task_planner/Screens/Tasks.dart';
 
 
 
@@ -130,7 +131,7 @@ class _DisplayListViewState extends State {
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             subtitle: new Text(listViewData[i].subtitle),
-            onTap: () {},
+            onTap: () { Tasklist();},
             onLongPress: () {
               print(
                 Text("Long Pressed"),
