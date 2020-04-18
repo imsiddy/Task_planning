@@ -24,31 +24,44 @@ double _minute;
 double h = ScreenUtil().setHeight(0);
 
 class _AddtskState extends State<Addtsk> {
-
-
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    double h = ScreenUtil().setHeight(0);    
+    double h = ScreenUtil().setHeight(0);
+    double _doubleyourTime =
+        time2.hour.toDouble() + (time2.minute.toDouble() / 60);
+    double _doubleNowTime =
+        time.hour.toDouble() + (time.minute.toDouble() / 60);
+
+    double _timeDiff = _doubleyourTime - _doubleNowTime;
+
+    _hr = _timeDiff.truncate();
+    _minute = ((_timeDiff - _timeDiff.truncate()) * 60).toDouble();
   }
-  
+
   bool validateAndSave() {
     final form = _formKey.currentState;
-    if (form.validate()) {
-      form.save();
-      //createRecord();
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => Secondpage()));
-      setState(() {
-        h = ScreenUtil().setHeight(0);
-      });
+    print(_minute);
+    print(_hr);
+    if (_hr >= 0 && _minute > 0) {
+      if (form.validate()) {
+        form.save();
+        //createRecord();
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => Secondpage()));
+        setState(() {
+          h = ScreenUtil().setHeight(0);
+        });
 
-      return true;
+        return true;
+      } else {
+        setState(() {
+          h = ScreenUtil().setHeight(50);
+        });
+
+        return false;
+      }
     } else {
-      setState(() {
-        h = ScreenUtil().setHeight(50);
-      });
-
-      return false;
+      print("Data lost");
     }
   }
 
@@ -69,6 +82,7 @@ class _AddtskState extends State<Addtsk> {
         selectedDate = picked;
       });
   }
+  
 
   Future<Null> _selectTime(BuildContext context, int x) async {
     if (x == 1) {
@@ -139,8 +153,9 @@ class _AddtskState extends State<Addtsk> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.only(top: ScreenUtil().setSp(25)),
+                            padding: EdgeInsets.only(
+                                top: ScreenUtil().setHeight(25),
+                                bottom: ScreenUtil().setHeight(25)),
                             child: TextFormField(
                               focusNode: myFocusNode,
                               style: TextStyle(
@@ -401,7 +416,7 @@ class _AddtskState extends State<Addtsk> {
                           textCapitalization: TextCapitalization.sentences,
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.zero,
-                              labelText: 'Title',
+                              labelText: 'Description',
                               labelStyle: TextStyle(
                                   fontSize: ScreenUtil().setSp(50),
                                   color: myFocusNode.hasFocus
@@ -419,11 +434,27 @@ class _AddtskState extends State<Addtsk> {
                               : null,
                         ),
                       ),
-                      RaisedButton(
-                        onPressed: () {
-                          validateAndSave();
-                        },
-                        child: Text("Add task"),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(50),
+                            vertical: ScreenUtil().setHeight(20)),
+                        child: RaisedButton(
+                          splashColor: Colors.grey,
+                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(200.0),
+                              side: BorderSide(color: Colors.blue)),
+                          onPressed: () {
+                            validateAndSave();
+                          },
+                          child: Text(
+                            "Add task",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: ScreenUtil().setSp(70)),
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -574,6 +605,7 @@ class _ClocksState extends State<Clocks> {
                         suffixIcon: Icon(Icons.arrow_drop_down),
                         contentPadding: EdgeInsets.only(left: 3),
                         // labelText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                        // labelText: time2.format(context),
                         labelText: time2.format(context),
                         labelStyle: TextStyle(
                             // height: 3,
