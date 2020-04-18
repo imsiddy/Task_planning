@@ -5,6 +5,7 @@ import 'package:task_planner/Screens/Addtask.dart';
 import 'package:task_planner/Screens/Appbar.dart';
 import 'package:task_planner/Screens/Appbarbd.dart';
 import 'package:task_planner/Screens/Listofwork.dart';
+import 'package:task_planner/Screens/Tasks.dart';
 
 class HomeScr extends StatefulWidget {
   @override
@@ -66,7 +67,7 @@ class _HomeScrState extends State<HomeScr> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Addtsk(),
+                                          builder: (context) => Tasklist(),
                                         ),
                                       );
                                     },
