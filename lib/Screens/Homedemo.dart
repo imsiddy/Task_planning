@@ -67,7 +67,7 @@ class _HomeScrState extends State<HomeScr> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Tasklist(),
+                                          builder: (context) => Addtsk(),
                                         ),
                                       );
                                     },
