@@ -13,8 +13,22 @@ class _TasklistState extends State<Tasklist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( backgroundColor: Color(0xFFFFF9EC)),
-          
+      appBar: AppBar(
+        leading: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
+        backgroundColor: Color(0xFFFFF9EC),
+        elevation: 0,
+      ),
+      body: ListView(
+        children: <Widget>[
+          Container(
+            color: Color(0xFFFFF9EC),
+            child: Container(),
+          ),
+        ],
+      ),
     );
   }
 }
