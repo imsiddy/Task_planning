@@ -122,6 +122,7 @@ class _AddtskState extends State<Addtsk> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
+                  leading: Icon(Icons.arrow_back_ios),
                   iconTheme: IconThemeData(
                     color: Colors.black, //change your color here
                   ),
