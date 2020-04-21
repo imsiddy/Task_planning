@@ -82,7 +82,6 @@ class _AddtskState extends State<Addtsk> {
         selectedDate = picked;
       });
   }
-  
 
   Future<Null> _selectTime(BuildContext context, int x) async {
     if (x == 1) {
@@ -122,7 +121,12 @@ class _AddtskState extends State<Addtsk> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
-                  leading: Icon(Icons.arrow_back_ios),
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                   iconTheme: IconThemeData(
                     color: Colors.black, //change your color here
                   ),
