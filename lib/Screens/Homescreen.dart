@@ -69,22 +69,8 @@ class _HomeScrState extends State<HomeScr> {
 
                                   backgroundImage: NetworkImage(
                                       "https://github.com/imsiddy/Task_planning/blob/master/assets/dsc_0072.JPG"),
-
-                                  // child: Image.asset('assets/dsc_0072.JPG',height: 200,width: 300),
                                 ),
                               ),
-                              // Container(
-                              //   width: 100.0,
-                              //   height: 100.0,
-                              //   decoration: new BoxDecoration(
-                              //     shape: BoxShape.circle,
-                              //     image: new DecorationImage(
-                              //       fit: BoxFit.fill,
-                              //       image: NetworkImage("https://i.imgur.com/BoN9kdC.png"),
-                              //     ),
-                              //   ),
-                              // ),
-
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.only(
