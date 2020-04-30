@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:task_planner/Screens/Addtask.dart';
+import 'package:calendar_strip/calendar_strip.dart';
 
 class Tasklist extends StatefulWidget {
   Tasklist({Key key}) : super(key: key);
