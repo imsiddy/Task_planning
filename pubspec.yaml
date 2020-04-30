@@ -22,6 +22,8 @@ dependencies:
   flutter_screenutil: ^1.1.0
   flutter_circular_chart: ^0.1.0
   velocity_x: ^0.3.2
+  calendar_strip: ^1.0.6
+  flutter_clean_calendar: ^1.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
