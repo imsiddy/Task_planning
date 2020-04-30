@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:task_planner/Screens/Cleancla.dart';
+// import 'package:task_planner/Screens/calender.dart';
 import 'Screens/Homedemo.dart';
 // import 'Screens/Homescreen.dart';
 
@@ -17,6 +19,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) =>
           MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child),
       debugShowCheckedModeBanner: false,
+      //  home: CalendarScreen(),
        home: HomeScr(),
     );
   }
