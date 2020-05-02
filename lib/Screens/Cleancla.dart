@@ -21,28 +21,28 @@ class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _selectedDay;
 
   final Map _events = {
-    DateTime(2019, 3, 1): [
+    DateTime(2020, 4, 1): [
       {'name': 'Event A', 'isDone': true},
     ],
-    DateTime(2019, 3, 4): [
-      {'name': 'Event A', 'isDone': true},
-      {'name': 'Event B', 'isDone': true},
-    ],
-    DateTime(2019, 3, 5): [
+    DateTime(2020, 4, 4): [
       {'name': 'Event A', 'isDone': true},
       {'name': 'Event B', 'isDone': true},
     ],
-    DateTime(2019, 3, 13): [
+    DateTime(2020, 4, 5): [
       {'name': 'Event A', 'isDone': true},
       {'name': 'Event B', 'isDone': true},
-      {'name': 'Event C', 'isDone': false},
     ],
-    DateTime(2019, 3, 15): [
+    DateTime(2020, 4, 13): [
       {'name': 'Event A', 'isDone': true},
       {'name': 'Event B', 'isDone': true},
       {'name': 'Event C', 'isDone': false},
     ],
-    DateTime(2019, 3, 26): [
+    DateTime(2020, 4, 15): [
+      {'name': 'Event A', 'isDone': true},
+      {'name': 'Event B', 'isDone': true},
+      {'name': 'Event C', 'isDone': false},
+    ],
+    DateTime(2020, 4, 26): [
       {'name': 'Event A', 'isDone': false},
     ],
   };
