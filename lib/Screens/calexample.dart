@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task_planner/Screens/Listofwork.dart';
 
 // Example holidays
 final Map<DateTime, List> _holidays = {
@@ -20,7 +21,7 @@ class Mypp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: Container(child: MyHomePage()),
     );
   }
 }
@@ -72,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         'Event A8',
         'Event B8',
         'Event C8',
-        'Event D8'
+        'Event D8',
+        'Event B7'
       ],
       _selectedDay.add(Duration(days: 3)):
           Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
@@ -137,20 +139,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         width: 1080, height: 1920, allowFontScaling: false);
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(widget.title),
-        // ),
-        body: Column(
-          // mainAxisSize: MainAxisSize.max,
+        body: ListView(
           children: <Widget>[
-            // Switch out 2 lines below to play with TableCalendar's settings
-            //-----------------------
-            _buildTableCalendar(),
-            // _buildTableCalendarWithBuilders(),
-            const SizedBox(height: 8.0),
-            // _buildButtons(),
-            const SizedBox(height: 8.0),
-            // Expanded(child: _buildEventList()),
+            Column(
+              // mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                // Switch out 2 lines below to play with TableCalendar's settings
+                //-----------------------
+                _buildTableCalendar(),
+                // _buildTableCalendarWithBuilders(),
+                const SizedBox(height: 8.0),
+                // _buildButtons(),
+                const SizedBox(height: 8.0),
+                _buildEventList(),
+                // DisplayListView(),
+              ],
+            ),
           ],
         ),
       ),
@@ -185,31 +189,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
   }
 
-  // Widget _buildButtons() {
-  //   final dateTime = _events.keys.elementAt(_events.length - 2);
-  //   return Column(
-  //     children: <Widget>[
-  //       Row(
-  //         mainAxisSize: MainAxisSize.max,
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         children: <Widget>[
-  //           RaisedButton(
-  //             child: Text('Week'),
-  //             onPressed: () {
-  //               setState(() {
-  //                 _calendarController.setCalendarFormat(CalendarFormat.week);
-  //               });
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //       const SizedBox(height: 8.0),
-  //     ],
-  //   );
-  // }
-
   Widget _buildEventList() {
     return ListView(
+      shrinkWrap: true,
+      physics: ScrollPhysics(),
       children: _selectedEvents
           .map((event) => Container(
                 decoration: BoxDecoration(
@@ -226,4 +209,39 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           .toList(),
     );
   }
+  // Widget _buildEventList() {
+  //    return ListView.builder(
+  //     physics: ScrollPhysics(),
+  //     shrinkWrap: true,
+  //     itemCount: listViewData.length,
+  //     itemBuilder: (context, int i) => Column(
+  //       children: [
+  //         new ListTile(
+  //           leading: new CircleAvatar(
+  //               radius: ScreenUtil().setSp(70),
+  //               backgroundColor: listViewData[i].color,
+  //               child: (listViewData[i].icon)),
+  //           title: new Text(
+  //             listViewData[i].title,
+  //             style: TextStyle(fontWeight: FontWeight.w500),
+  //           ),
+  //           subtitle: new Text(listViewData[i].subtitle),
+  //           onTap: () {
+  //             Navigator.push(
+  //               context,
+  //               MaterialPageRoute(
+  //                 builder: (context) => null
+  //               ),
+  //             );
+  //           },
+  //           onLongPress: () {
+  //             print(
+  //               Text("Long Pressed"),
+  //             );
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
