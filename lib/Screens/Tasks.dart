@@ -84,19 +84,20 @@ class _TasklistState extends State<Tasklist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        backgroundColor: Color(0xFFFFF9EC),
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: Text("data",style: TextStyle(color: Colors.black),),
+      //   leading: IconButton(
+      //     icon: Icon(
+      //       Icons.arrow_back_ios,
+      //       color: Colors.black,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //   ),
+      //   backgroundColor: Color(0xFFFFF9EC),
+      //   elevation: 0,
+      // ),
       body: ListView(
         children: <Widget>[
           Container(
@@ -107,9 +108,13 @@ class _TasklistState extends State<Tasklist> {
                 Flexible(
                   flex: 2,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(60),
-                        vertical: ScreenUtil().setHeight(80)),
+                    // padding: EdgeInsets.symmetric(
+                    //     horizontal: ScreenUtil().setHeight(60),
+                    //     vertical: ScreenUtil().setHeight(80)),
+                    padding: EdgeInsets.only(
+                        top: ScreenUtil().setHeight(60),
+                        left: ScreenUtil().setHeight(80),
+                        right: ScreenUtil().setHeight(80)),
                     child: Row(
                       children: <Widget>[
                         Text(
@@ -149,7 +154,7 @@ class _TasklistState extends State<Tasklist> {
                   ),
                 ),
                 Flexible(
-                  flex: 5,
+                  flex: 10,
                   fit: FlexFit.loose,
                   child: Container(
                     child: MyHomePage(),
