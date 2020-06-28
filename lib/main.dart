@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task_planner/Screens/Breath.dart';
+import 'package:task_planner/Screens/Experiment.dart';
+import 'package:task_planner/Screens/Tasks.dart';
 import 'package:task_planner/Screens/calexample.dart';
 import 'Screens/Homedemo.dart';
 
@@ -17,8 +20,9 @@ class _MyAppState extends State<MyApp> {
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
           child: child),
       debugShowCheckedModeBanner: false,
-       home: HomeScr(),
+      //  home: HomeScr(),
       // home: Container(child: MyHomePage()),
+      home: Tasklist(),
     );
   }
 }
