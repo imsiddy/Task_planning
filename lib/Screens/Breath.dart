@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-
+import 'package:task_planner/Screens/Experiment.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,11 +14,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(width: MediaQuery.of(context).size.width,child: CupertinoBreathe()),
+      body: Container(
+          width: MediaQuery.of(context).size.width, child: CupertinoBreathe()),
     );
   }
 }
-int sec = 4;
+
+int sec = 3;
 
 class CupertinoBreathe extends StatefulWidget {
   @override
@@ -31,10 +34,31 @@ class _CupertinoBreatheState extends State<CupertinoBreathe>
   @override
   void initState() {
     super.initState();
+    // Timer(Duration(seconds: 10), (){ Visibility(visible: true, child: MaterialBreathe(),);});
     _controller = AnimationController(
-      duration:  Duration(seconds: sec),
+      duration: Duration(seconds: sec),
       vsync: this,
-    )..repeat(reverse: true);
+    )..addStatusListener(
+      (status) {
+        if (status == AnimationStatus.completed) {
+          _controller.reverse();
+        }
+        if (status == AnimationStatus.dismissed) {
+          _controller.forward();
+        }
+      },
+    );
+    // ..repeat(reverse: true);
+    // _controller.addStatusListener(
+    //   (status) {
+    //     if (status == AnimationStatus.completed) {
+    //       _controller.reverse();
+    //     }
+    //     if (status == AnimationStatus.dismissed) {
+    //       _controller.forward();
+    //     }
+    //   },
+    // );
   }
 
   @override
