@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_planner/Screens/Breath.dart';
+import 'package:task_planner/Screens/Data.dart';
 import 'package:task_planner/Screens/Experiment.dart';
 import 'package:task_planner/Screens/Tasks.dart';
 import 'package:task_planner/Screens/calexample.dart';
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       //  home: HomeScr(),
       // home: Container(child: MyHomePage()),
-      home: Tasklist(),
+      home: DataSat(),
     );
   }
 }
